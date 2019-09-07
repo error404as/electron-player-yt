@@ -6,11 +6,11 @@ Be patient, Electron is quite a huge package (up to 2 minutes in my case).
 
 `npm start`
 
-Opens the app window. Process will be closed if you close the window, or when you click `X` button in the app.
+Opens the Home screen. Process will be closed if you close the window.
 
-Put an URL to the video or its ID in the upper input and press `Enter`/`Return` (it'll parse URLs for video or video in playlist to get the ID).
+Use the *Player* field to open a player.
 
-`X` button for closeing the window.
+Use the *Live Chat* field to open a video's chat.
 
-Grey buttons on top-left and top-right corners are **for moving** the window.
+All app windows are *Always On Top*.
 

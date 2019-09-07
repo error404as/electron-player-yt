@@ -1,29 +1,54 @@
 const electron = require('electron');
 const remote = electron.remote;
+const { BrowserWindow } = remote.require('electron');
 
+const win = remote.getCurrentWindow();
 
-
-const inp = document.getElementById('urlInput');
-inp.addEventListener('focus', function (e) {
-    this.select();
-});
-inp.addEventListener('keypress', (e) => {
-    if(e.keyCode === 13){
-        let id = videoId(inp.value);
-        if(id){
-            document.getElementById('videoFrame').src = 'https://www.youtube.com/embed/' + id;
-        }
+document.getElementById('form-video').addEventListener('submit', (e) => {
+    e.preventDefault();
+    let id = videoId(e.target.elements.query.value);
+    if(id){
+        openWindow({type: 'player', id});
     }
 });
-
-
-document.getElementById('btnClose').addEventListener('click', () => {
-    let win = remote.getCurrentWindow();
-    win.close();
+document.getElementById('form-chat').addEventListener('submit', (e) => {
+    e.preventDefault();
+    let id = videoId(e.target.elements.query.value);
+    if(id){
+        openWindow({type: 'chat', id});
+    }
+});
+document.getElementById('btnDebugger').addEventListener('click', () => {
+    win.webContents.openDevTools({ mode: 'undocked' });
 });
 
 
+function openWindow(props) {
+    let options = {
+        parent: win,
+        alwaysOnTop: true,
+        autoHideMenuBar: true,
+    };
+    let url = '';
+    if(props.type === 'player'){
+        options.width = 560;
+        options.height = 315;
+        url = 'https://www.youtube.com/embed/' + props.id;
+    }
+    if(props.type === 'chat'){
+        options.width = 400;
+        options.height = 600;
+        url = 'https://www.youtube.com/live_chat?v=' + props.id;
+    }
+    let child = new BrowserWindow(options);
 
+    child.loadURL(url);
+    win.hide();
+    child.on('closed', () => {
+        win.show();
+        child = null;
+    });
+}
 
 function videoId(s){
     // https://www.youtube.com/watch?v=WLroZrNPPhc
@@ -33,5 +58,5 @@ function videoId(s){
         if(!q){ return null }
         return q.split('=')[1];
     } 
-    return null;
+    return s;
 }

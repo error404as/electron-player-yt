@@ -4,21 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>YT Player</title>
+    <title>Youtube helper app</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="content">
-        <div class="top-panel">
-            <div class="drag"></div>
+    
+    <div class="home-panel">
+        <form class="form-row" id="form-video">
+            <label>Player</label>
+            <input type="text" name="query" placeholder="Video URL or ID" onfocus="this.select()">
+            <button>Open</button>
+        </form>
+        <form class="form-row" id="form-chat">
+            <label>Live Chat</label>
+            <input type="text" name="query" placeholder="Video URL or ID" onfocus="this.select()">
+            <button>Open</button>
+        </form>
+    </div>
 
-            <input type="text" id="urlInput" placeholder="Video ID">
-            <button id="btnClose">X</button>
-
-            <div class="drag reverse"></div>
-        </div>
-        
-        <iframe width="560" height="315" id="videoFrame" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div class="dev-panel">
+        <button id="btnDebugger">Debugger</button>
     </div>
 
     <script src="index.js"></script>
